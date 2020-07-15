@@ -5,3 +5,5 @@
 *    Ex: $rota->get|post()("/suarota","Controller@metodo");
 */
 
+$rota->get("/","EnqueteController@index");
+$rota->get("/nova","EnqueteController@create");
