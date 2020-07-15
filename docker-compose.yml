@@ -1,0 +1,48 @@
+version: '3.1'
+services:
+  web:
+    image: jhousyfran/php7-3_apache
+    expose:
+      - "80/tcp"
+      - "443/tcp"
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      ENVIRONMENT: www_signo
+    volumes:
+      - ./:/var/www/html
+      - ./logs/apache2:/var/log/apache2
+    depends_on:
+      - db
+    links:
+      - db
+    restart: always
+    networks:
+      www_signo:
+#    entrypoint: ["/var/www/html/docker-entrypoint.sh"]
+#    tty: true
+
+  db:
+    image: mysql:5.7
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_520_ci']
+    expose:
+      - "3306/tcp"
+    ports:
+      - "8306:3306"
+    environment:
+      MYSQL_DATABASE: idealcall
+      MYSQL_USER: local
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - ./datadir:/var/lib/mysql
+      - ./initdb:/docker-entrypoint-initdb.d
+    restart: always
+    networks:
+      www_signo:
+
+# docker network create www_signo
+networks:
+  www_signo:
+    external: true

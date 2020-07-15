@@ -1,0 +1,13 @@
+{
+    "name": "jhousyfran/signo",
+    "description": "Desafio Técnico Signo",
+    "autoload": {
+        "psr-4": {
+            "Signo\\": "src/",
+            "App\\": "app/"
+        }
+    },
+    "require": {
+        "klein/klein": "^2.1"
+    }
+}
