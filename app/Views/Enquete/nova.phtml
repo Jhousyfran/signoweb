@@ -1,11 +1,43 @@
 <div class="container">  
-    <form action="#" class="form-contact" method="post" tabindex="1">  
+    <form action="<?= url("/nova") ?>" class="form-contact" method="post"  onsubmit="return validarForm()">  
         <label for="">Título</label>
-        <input type="text" class="form-contact-input" name="titulo" placeholder="Título" required />
+        <input type="text" class="form-contact-input" name="titulo" placeholder="Título" maxlength="320" minlength="10" required />
         <label for="">Data de Início</label>  
-        <input type="date" class="form-contact-input" name="dta_inicio"  required />
+        <input type="date" class="form-contact-input" id="data_inicio" name="data_inicio" min="<?= date("Y-m-d") ?>" onblur="valorDataFim()"  required />
         <label for="">Data de Encerramento</label>  
-        <input type="date" class="form-contact-input" name="dta_fim" required/>  
+        <input type="date" class="form-contact-input" id="data_fim" name="data_fim" required/>
+        <label for="">Respostas</label>
+        <input type="text" class="form-contact-input" name="resposta[]" placeholder="Resposta" required />
+        <input type="text" class="form-contact-input" name="resposta[]" placeholder="Resposta" required />
         <button type="submit" class="form-contact-button">Enviar</button>  
     </form>  
-</div>  
+</div>
+
+<script>
+
+    function adicionandoMaisUmDia(data) {
+        console.log(data);
+        
+        var ano = data.split("-")[0];
+        var mes = data.split("-")[1];
+        var dia = data.split("-")[2];
+
+        dia = parseInt(dia) + 1;
+        console.log(dia);
+        
+
+        return ano + '-' + ("0" + mes).slice(-2) + '-' + ("0" + dia).slice(-2);
+    }
+    
+    function validaForm(){
+
+    }
+
+    function valorDataFim(){
+        let data_inicio = $('#data_inicio').val();
+        data_min_fim = adicionandoMaisUmDia(data_inicio);     
+        console.log(data_min_fim);
+           
+        $('#data_fim').attr({'min': data_min_fim});
+    }
+</script>

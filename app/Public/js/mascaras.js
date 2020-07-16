@@ -8,3 +8,12 @@ $(function () {
     $(".hora").mask("99:99", { placeholder: "" });
     $(".cep").mask("99999-999", { placeholder: "" });
 });
+
+function validaDatas(dataInicial, dataFinal) {
+    if (!dataInicial || !dataFinal) return false;
+    if (dataInicial >= dataFinal) {
+        return false;
+    } else {
+        return true
+    }
+}

@@ -7,3 +7,4 @@
 
 $rota->get("/","EnqueteController@index");
 $rota->get("/nova","EnqueteController@create");
+$rota->post("/nova","EnqueteController@store");

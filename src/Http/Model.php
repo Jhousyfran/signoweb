@@ -20,13 +20,20 @@ class Model {
 
     private $_pdo;
     private function setPDO(){
-        $config_file = '/env.ini';
+        $config_file = RAIZ.'/env.ini';
         
         #Uma verificação simples para saber se o arquivo foi carregado, se não, é lançado uma exceção
-        if(!$config = parse_ini_file($config_file,TRUE))
-            throw new exception('Não foi possivel ler '.$config_file.'.');
+        $config = parse_ini_file($config_file,TRUE);
+        if(!$config)
+            throw new \Exception('Não foi possivel ler '.$config.'.');
 
-        $this->_pdo = new PDO('mysql:host=' . $config['database']['host'] . ';port=' . $config['database']['port'] . ';dbname=' . $config['database']['name']);
+        $db = $config['database'];
+        try {
+            $this->_pdo = new PDO("mysql:host={$db['host']};port={$db['port']};dbname={$db['name']}", $db['user'], $db['password']);
+            $this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (\PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
+        }
     }
     
     
@@ -108,7 +115,7 @@ class Model {
         try {
             $sql = "SELECT * FROM {$this->table};";
             $all = $this->_pdo->query($sql);
-            $result = $all->fetchAll();
+            $result = $all->fetchAll(\PDO::FETCH_CLASS);
             // print_r($result);
             return $result;
         } catch(PDOException $e ){

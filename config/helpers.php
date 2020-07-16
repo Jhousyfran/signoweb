@@ -5,7 +5,8 @@
 
 
 #Função Para passa o url base do projeto
-function assets($file){
+function assets($file)
+{
     $protocol   = strtolower(preg_replace("/[^a-zA-Z\s]/",'',$_SERVER["SERVER_PROTOCOL"]));
     $serve_name = $_SERVER["SERVER_NAME"];
     $port       = $_SERVER["SERVER_PORT"] == "80" ? "" : ":".$_SERVER["SERVER_PORT"];
@@ -15,7 +16,8 @@ function assets($file){
 
 }
 
-function url($rota){
+function url($rota)
+{
     $protocol   = strtolower(preg_replace("/[^a-zA-Z\s]/",'',$_SERVER["SERVER_PROTOCOL"]));
     $serve_name = $_SERVER["SERVER_NAME"];
     $port       = $_SERVER["SERVER_PORT"] == "80" ? "" : ":".$_SERVER["SERVER_PORT"];
@@ -25,10 +27,16 @@ function url($rota){
 
 }
 
-function isEmptyOrNull($variavel){
+function isEmptyOrNull($variavel)
+{
     if(isset($variavel) && !empty($variavel))
         return $variavel;
     
     return '';
+}
+
+function now()
+{
+    return date('Y-m-d H:i:s');
 }
 
