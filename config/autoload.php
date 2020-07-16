@@ -15,7 +15,7 @@ if(ltrim($base, '/')){
     $_SERVER['REQUEST_URI'] = substr($_SERVER['REQUEST_URI'], strlen($base));
 }
 // else{
-//     echo 'merda';
+//     echo '-';
 // }
 
 #Carrega o nosso plugin de rotas
