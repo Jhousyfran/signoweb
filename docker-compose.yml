@@ -31,7 +31,7 @@ services:
     ports:
       - "8306:3306"
     environment:
-      MYSQL_DATABASE: idealcall
+      MYSQL_DATABASE: signo
       MYSQL_USER: local
       MYSQL_ROOT_PASSWORD: root
       MYSQL_PASSWORD: root
