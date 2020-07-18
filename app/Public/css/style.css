@@ -672,3 +672,29 @@ input[id*="modal_"]:checked + div.modal .modal-content {
 .form-contact-button:hover {
   opacity: 1;
 }
+
+.alert {
+  width:100%;
+  background-color:#00b527b5;
+  color: white;
+  border-radius: 20px;
+  padding: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+}
+
+.f-s-12{
+    font-size: 12px;
+}
+
+.aguardando {
+    color: #f56d43;
+}
+
+.aberta {
+    color: #0d9625;
+}
+
+.encerrada {
+    color: #d81111;
+}

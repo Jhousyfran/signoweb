@@ -1,0 +1,47 @@
+<div class="container" >
+    <? if($this->voto){ ?>
+    <div class="alert">
+        <b>Muito obrigado por votar! Recebemos o seu voto e ele já foi computado!</b>
+        <b>Você pode votar quantas vezes quiser :)</b>
+    </div>
+    <br>
+    <? } ?>
+    <form action="<?= url('/enquete/'.$this->enquete->id.'/votar') ?>" class="form-contact" method="post">
+        <h3 for=""><?= $this->enquete->titulo ?></h3>
+        <label style="font-size:14px;"><?= dateFormated($this->enquete->data_inicio, 'd/m/y').' a '.dateFormated($this->enquete->data_fim, 'd/m/y')?>
+        <? 
+        if($this->enquete->data_inicio > date('Y-m-d')){ ?>
+            <strong class="aguardando">Aguardando abertura</strong>
+        <? 
+        }elseif ($this->enquete->data_fim > date('Y-m-d')){
+        ?>
+            <strong class="aberta">Aberta</strong>
+        <? }else { ?>
+            <strong class="encerrada" >Encerrada</strong>
+        <? } ?>
+        </label>
+        <br>
+        <br>
+        <?
+        foreach ($this->respostas as $key => $resposta) { ?>
+            <label for="resposta<?=$key?>">
+                <input <? if(($this->enquete->data_inicio > date('Y-m-d') )|| ($this->enquete->data_fim < date('Y-m-d')) ){echo 'disabled'; } ?> style="width:5%;height: 15px" type="radio" class="form-contact-input" id="resposta<?=$key?>" name="resposta" value="<?= $resposta->id ?>"  required /> <?= $resposta->resposta ?> - <?= $resposta->votos ?> voto(s) <br>
+            </label>
+        <?
+        }
+        ?>
+
+
+        <div style="width:100%;margin-top:10px;float:left;">
+            <button <? if(($this->enquete->data_inicio > date('Y-m-d') )|| ($this->enquete->data_fim < date('Y-m-d')) ){echo 'disabled style="cursor:not-allowed;"'; } ?> type="submit" class="form-contact-button" style="">Votar</button>  
+        </div>
+    </form>  
+</div>
+
+<style>
+
+.c-p{
+    cursor: pointer;
+}
+
+</style>

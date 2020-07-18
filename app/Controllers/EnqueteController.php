@@ -5,12 +5,14 @@ namespace App\Controllers;
 use App\Controllers\BaseController\MasterController;
 use App\Model\Enquete;
 use App\Model\EnqueteResposta;
+use App\Model\EnqueteVoto;
 
 class EnqueteController extends MasterController
 {
     function __construct()
     {
         $this->enquete = new Enquete();
+        $this->resposta = new EnqueteResposta();
     }
 
     public function index()
@@ -55,7 +57,7 @@ class EnqueteController extends MasterController
         if(!$enquete)
             return 'ERROR';
         
-        return $this->response->redirect(url('/'))->send();  
+        return $this->response->redirect(url('/enquete/'.$enquete))->send();  
     }
 
     public function update()
@@ -88,6 +90,25 @@ class EnqueteController extends MasterController
         return $this->response->redirect(url('/enquete/'.$id))->send();  
     }
 
+    public function enquete()
+    {
+        $id = $this->request->id ? $this->request->id : false ;
+
+        if(!$id) return $this->response->redirect(url('/'))->send();
+
+        $enquete = $this->enquete->find($id);
+        if(!$enquete->id) return $this->response->redirect(url('/'))->send();
+        $respostas = EnqueteVoto::respostas($enquete->id);
+        $voto = false;
+
+        session_start();
+        if(isset($_SESSION['voto']) && $_SESSION['voto']){
+            unset($_SESSION['voto']);
+            $voto = true;
+        }
+        
+        return $this->service->render('Enquete/voto.phtml', ['enquete'=> $enquete, 'respostas' => $respostas, 'voto' => $voto]);
+    }
 
     public function list()
     {
@@ -95,12 +116,47 @@ class EnqueteController extends MasterController
         return $this->service->render('Enquete/lista.phtml', [ 'enquetes' => $enquetes]);
     }
 
+    public function votar()
+    {
+        $id = $this->request->id ? $this->request->id : false ;
+        if(!$id) return $this->response->redirect(url('/'))->send();
+
+        $enquete = $this->enquete->find($id);
+        $resposta = $this->resposta->find($_POST['resposta']);
+        if(!$enquete->id || !$resposta->id) return $this->response->redirect(url('/'))->send();
+
+        $data = array(
+            'enquete_id' => $enquete->id,
+            'resposta_id' => $resposta->id,
+            'criado_em' => now()
+        );
+
+        try {
+            $enquete_voto = (new EnqueteVoto())->save($data);
+            if(!$enquete_voto)
+                return "ERROR";
+        } catch (\Exception $e) {
+            return "ERROR: {$e->getMessage()}";
+        }
+
+        session_start();
+        $_SESSION['voto'] = true;
+
+        return $this->response->redirect(url('/enquete/'.$id))->send();
+
+    }
+
     public function delete()
     {
         $id = $this->request->id ? $this->request->id : false ;
-        $enquete = (new Enquete)->find($id);
-        if(!$enquete->id) return $this->response->redirect(url('/'))->send();
 
+        if($id){
+            $enquete = $enquete->find($id);
+            if(!$enquete->id) return $this->response->redirect(url('/'))->send();
+            $respostas = Enquete::respostas($enquete->id);
+        }
+
+        
     }
 
 }
