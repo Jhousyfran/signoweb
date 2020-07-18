@@ -1,0 +1,37 @@
+<table class="table table-responsive">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th style="">titulo</th>
+			<th style="">criada em</th>
+			<th style="">inicio / Fim</th>
+			<th style="">ações</th>
+			<!-- <th>Acão</th> -->
+		</tr>
+	</thead>
+	<tbody>
+	<?php
+	if(empty($this->enquetes)){
+		echo '<tr> <td colspan="6" style="background-color: #ccc;"> Não há enquetes Cadastradas</td> </tr>';
+	} else {
+	foreach ($this->enquetes as $key => $enquete) { ?>
+		<tr style="<?php if($key%2 == 0) echo 'background-color: #dbe4f3;' ?>">
+			<td><?= ++$key ?></td>
+			<td><?= $enquete->titulo ?></td>
+			<td><?= dateFormated($enquete->criado_em, 'd/m/Y H:i') ?></td>
+			<td><?= dateFormated($enquete->data_inicio, 'd/m/Y').' / '.dateFormated($enquete->data_fim, 'd/m/Y') ?></td>
+			<td>
+                <a href="<?= url('/enquete/'.$enquete->id.'/editar') ?>" class="btn btn-info">
+                    editar
+                </a>
+                 excluir
+            </td>
+			<!-- <td>
+					<a href="#" class="but-war"><i class="fa fa-exchange" aria-hidden="true"></i>
+						Emprestar</a>
+					
+			</td> -->
+		</tr>
+	<?php } }?>
+	</tbody>
+</table>

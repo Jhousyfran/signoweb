@@ -10,6 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="<?= assets('css/style.css'); ?>">
 	<script type="text/javascript" src=<?= assets("js/jquery-3.2.1.slim.min.js") ?> ></script>
 	<script type="text/javascript" src=<?= assets("js/jquery.maskedinput.min.js") ?> ></script>  
+	<script type="text/javascript" src=<?= assets("js/vue.js") ?> ></script>  
 	
 	<link href="<?= assets('css/font-awesome.min.css'); ?>" rel="stylesheet" >
 	<title>Signo Web</title>
@@ -34,7 +35,7 @@
 				<a href="<?= url('/nova') ?>" title="Nova Enquete">Nova Enquete</a>
 				</li>
 				<li>
-				<a href="#" title="Editar Enquetes">Editar Enquetes</a>
+				<a href="<?= url('/enquetes/editar') ?>" title="Editar Enquetes">Editar Enquetes</a>
 				</li>
 			</ul>
 		</nav>

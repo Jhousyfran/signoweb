@@ -40,3 +40,7 @@ function now()
     return date('Y-m-d H:i:s');
 }
 
+function dateFormated($date, $stringFormat)
+{
+    return date($stringFormat, strtotime($date));
+}

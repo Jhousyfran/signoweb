@@ -57,7 +57,7 @@ class Model {
         }
     }
             
-    public function update(array $columns_and_values, $id, $column = false)
+    public function update(array $columns_and_values, $id, $column_where = false)
     {   
         $sql_text_array = array();
         foreach($columns_and_values as $column =>$value){
@@ -67,11 +67,13 @@ class Model {
         $sql_text = implode(",", $sql_text_array);
 
         // try {
-            if($column){
+            if($column_where){
                 $update = $this->_pdo->prepare("UPDATE {$this->table} SET {$sql_text} WHERE {$column} = {$id}");                
             }else{
                 $update = $this->_pdo->prepare("UPDATE {$this->table} SET {$sql_text} WHERE {$this->primaryKey} = {$id}");
             }
+
+            // return var_dump($this->primaryKey );
             // $sql = "INSERT INTO $this->table ($insert_campos) VALUES ('$insert_values')";        
             return $update->execute();
         // } catch (Exception $e) {
@@ -79,7 +81,7 @@ class Model {
         // }
     }
     
-    public function delete($id, $columnDoDelete){
+    public function delete($id, $columnDoDelete = false){
          try {
             if($columnDoDelete){
                 $sql = "DELETE FROM {$this->table} WHERE {$columnDoDelete} = {$id};";
@@ -102,7 +104,7 @@ class Model {
             $sql = "SELECT * FROM {$this->table} WHERE {$this->primaryKey}={$id};";
             $find = $this->_pdo->prepare($sql);
             $find->execute();
-            $result = $find->fetch();
+            $result = $find->fetchObject();
             // print_r($result);
             return $result;
         } catch(PDOException $e ){
@@ -128,7 +130,7 @@ class Model {
             $sql = "SELECT * FROM {$this->table} WHERE {$column}={$value};";
             $find = $this->_pdo->prepare($sql);
             $find->execute();
-            $result = $find->fetchall();
+            $result = $find->fetchall(\PDO::FETCH_CLASS);
             // print_r($result);
             return $result;
         } catch(PDOException $e ){

@@ -1,37 +1,73 @@
-<div class="container">  
-    <form action="<?= url("/nova") ?>" class="form-contact" method="post"  onsubmit="return validarForm()">  
+<div class="container" id="app">  
+    <? if($this->enquete->id) { ?>
+        <form action="<?= url("/editar") ?>" class="form-contact" method="post"  onsubmit="return validarForm()">
+            <input type="hidden" name="id" value="<?= $this->enquete->id ?>">    
+    <? }else{ ?>
+        <form action="<?= url("/nova") ?>" class="form-contact" method="post"  onsubmit="return validarForm()">
+    <? }?>
         <label for="">Título</label>
-        <input type="text" class="form-contact-input" name="titulo" placeholder="Título" maxlength="320" minlength="10" required />
-        <label for="">Data de Início</label>  
-        <input type="date" class="form-contact-input" id="data_inicio" name="data_inicio" min="<?= date("Y-m-d") ?>" onblur="valorDataFim()"  required />
+        <input type="text" class="form-contact-input" name="titulo" value="<?= $this->enquete->titulo ?>" placeholder="Título" maxlength="320" minlength="10" required />
+        <label for="">Data de Início</label>
+        <? if($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d'))){ ?>  
+            <input type="date" style="margin-bottom:0px;" class="form-contact-input" id="data_inicio" name="data_inicio" disabled value="<?= $this->enquete->data_inicio ?>" min="<?= date("Y-m-d") ?>" onblur="valorDataFim()"  required />
+            <small style="margin-bottom:20px;font-size:12px;color:#d44d4d;">A data de início não pode mais ser alterada.</small>
+            <br>
+        <? }else { ?>
+            <input type="date" class="form-contact-input" id="data_inicio" name="data_inicio" value="<?= $this->enquete->data_inicio ?>" min="<?= date("Y-m-d") ?>" onblur="valorDataFim()"  required />
+        <? } ?>
         <label for="">Data de Encerramento</label>  
-        <input type="date" class="form-contact-input" id="data_fim" name="data_fim" required/>
-        <label for="">Respostas</label>
-        <input type="text" class="form-contact-input" name="resposta[]" placeholder="Resposta" required />
-        <input type="text" class="form-contact-input" name="resposta[]" placeholder="Resposta" required />
-        <button type="submit" class="form-contact-button">Enviar</button>  
+        <input type="date" class="form-contact-input" id="data_fim" name="data_fim" value="<?= $this->enquete->data_fim ?>" required/>
+        <label for="">
+            Respostas - - - - - - - - - - -
+            <br>
+            <? if($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d'))){ ?>
+                <small style="color:#d44d4d;font-size: 12px;">Não é mais possível alterar as respostas, a enquete está em andamento ou encerrada.</small> 
+            <? } ?>
+        </label>
+        <hr>
+        <!-- <div style="width:100%;text-align:left;padding:20px 0px;">
+            <button v-on:click="addResposta()" type="button" style="float:left;text-align:left;">nova resposta</button>
+            <br>
+        </div> -->
+        <div v-for="(resposta, index) in respostas" :key="index" style="width:100%;float:left;">
+            <input :id="'resposta'+index"  style="margin-bottom:5px;" type="text" v-model="resposta.value" class="form-contact-input" name="resposta[]" placeholder="Resposta" required style="width:100%;float:left;" v-on:change="validarRespostas()" <? if(($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d')))){ echo 'disabled'; } ?> />
+             <? if(!($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d')))){ ?> 
+            <div style="width:100%;text-align:left;">
+                <small v-on:click="rmResposta(index)" v-if="index >= 3" class="c-p" style="margin-bottom:20px;font-size:15px;color:red;">eliminar resposta</small>
+            </div>
+             <? } ?>
+            <!-- <div v-if="index >= 3" style="float:right;width:15%;padding:10px;color:red;">
+                <span v-on:click="rmResposta(index)" class="c-p" > excluir</span>
+            </div> -->
+        </div>
+        <div style="width:100%;margin-top:10px;float:left;">
+            <p v-if="!respostas_validas" style="color:rede;text-align:center;">Não é aceitavel respostas repetidas, corrija para continuar.</p>
+            <br>
+             <? if(!($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d')))){ ?> 
+                <button type="button"  v-on:click="addResposta()"  class="form-contact-button btn-green" style="position:relative; width:40%;float:left;">Nova resposta</button>  
+             <? } ?>
+            <button v-if="respostas_validas" type="submit" class="form-contact-button" style="position:relative; width:40%;float:right;">Salvar</button>  
+            <button v-if="!respostas_validas" title="Corrija as repostas repetidas" disabled type="submit" class="form-contact-button" style="position:relative; width:40%;float:right;">Salvar</button>  
+        </div>
     </form>  
 </div>
 
 <script>
 
     function adicionandoMaisUmDia(data) {
-        console.log(data);
         
         var ano = data.split("-")[0];
         var mes = data.split("-")[1];
         var dia = data.split("-")[2];
 
         dia = parseInt(dia) + 1;
-        console.log(dia);
         
-
         return ano + '-' + ("0" + mes).slice(-2) + '-' + ("0" + dia).slice(-2);
     }
     
-    function validaForm(){
+    // function validaForm(){
 
-    }
+    // }
 
     function valorDataFim(){
         let data_inicio = $('#data_inicio').val();
@@ -40,4 +76,45 @@
            
         $('#data_fim').attr({'min': data_min_fim});
     }
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            respostas: [
+                <? 
+                if( $this->enquete->id && count($this->respostas)){
+                    foreach ($this->respostas as $resposta) { ?>
+                        { value: '<?= $resposta->resposta ?>'},
+                <?  }
+                }else{ ?>
+                    {value: ""},
+                    {value: ""},
+                    {value: ""},
+                <?} ?>
+                
+            ],
+            respostas_validas: true
+        },
+        methods: {
+            addResposta(){
+                this.respostas.push({ value: ''});
+            },
+            rmResposta: function(index){
+                console.log(index);
+                this.respostas.splice(index, 1);
+            },
+            validarRespostas(){
+                this.respostas_validas = !(new Set(this.respostas)).size !== this.respostas.length;
+            }
+
+        },
+    });
 </script>
+
+<style>
+
+.c-p{
+    cursor: pointer;
+}
+
+</style>
