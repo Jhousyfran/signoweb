@@ -1,32 +1,52 @@
 # Signo
 
 Este é um projeto em PHP puro usando Orientação a Objetos e usando o padrão MVC. O projeto também faz uso do composer para aproveitar o autoload além da PSR-4 e obter beneficios como namespaces;
-<br>
+
+![image](https://raw.githubusercontent.com/Jhousyfran/signoweb/master/app/Public/img/Screenshot.png)
+
 ##### A estrura do projeto:
 
 app   \- \-\|
+
             \|\- Controllers // controllers da Aplicação
+
             \|\- Model        // models da Aplicação
+
             \|\- Views        // View da Aplicação
+
             Rotas.php    // Url amigaveis
+
 config \- \-\|
+
             autoload.php
+
             configuracoes.php
+
             helpers.php
+
 documentacao \- \-\|
+
 initdb \- \-\|
+
 src  \- \-\|
+
 composer.json
+
 docker-compse.yml
+
 .env.ini
+
 index.php
+
 README.md
 
+<br>
 **OBS: Se apagarmos os arquivos da pasta app/Controllers, app/Model/, e app//Views/ e limparmos o arquivo app/Rotas.php, teremos uma estrutura pronta para ser usada como um micro-framework capaz de atender as necessidades básicas de uma aplicação, como esta.**
 <br>
 ##### A estrura do banco de dados:
 
 ![image](https://raw.githubusercontent.com/Jhousyfran/signoweb/master/Documentacao/db_modelagem.png)
+
 **OBS: A estrutura poderia ser mais simples, poderiamos ter apenas uma coluna na tabela "enquete\_respostas" para contabilizar os votos de cada resposta, sempre que alguém votasse poderiamos incrementar o valor, mas esta estrutura foi feita da forma mostrada a cima pois assim, podemos guardar o momento exatato em que cada voto acontece, isso seria util no futuro para uma possível auditoria, talvez ficaria melhor ainda se criássemos mais uma coluna na tabela "enquete\_votos" para guardar o ip de quem vota, e poderiamos guardar outras informações (navegador, etc) mais que seriam utéis...**
 
 ## O Desafio
@@ -89,7 +109,7 @@ docker-compose run web composer install
 5\. Agora você pode acessar aplicação em [localhost ou clique aqui!](http://localhost)
 <br>
 ### ~~Como rodar sem docker~~
-
+<br>
 1\. Clone este repositorio \(na diretorio do seu serviço http \- apache ou nginx \-\) e entre na pasta\.
 
 ```
