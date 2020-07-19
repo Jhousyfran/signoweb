@@ -88,7 +88,7 @@ Visualização da enquete
 1\. Clone este repositorio  e entre na pasta
 
 ```
-git clone [https://github.com/Jhousyfran/signoweb.git](https://github.com/Jhousyfran/signoweb.git) 
+git clone https://github.com/Jhousyfran/signoweb.git
 cd signoweb
 ```
 
