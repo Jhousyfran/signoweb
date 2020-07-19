@@ -8,7 +8,7 @@ Antes de seguir os passos abaixo tenha certeza que o **docker** e **docker-com
 
 ```
 git clone https://github.com/Jhousyfran/signoweb.git
-cd sga
+cd signoweb
 ```
 
 2\. O arquivo de configurações é o .env.ini (ele já esta configurado)
