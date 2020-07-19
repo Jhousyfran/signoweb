@@ -6,7 +6,7 @@ services:
       - "80/tcp"
       - "443/tcp"
     ports:
-      - "80:80"
+      - "8000:80"
       - "443:443"
     environment:
       ENVIRONMENT: www_signo
