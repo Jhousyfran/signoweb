@@ -3,6 +3,7 @@
 		<tr>
 			<th>#</th>
 			<th style="">titulo</th>
+			<th style="">status</th>
 			<th style="">criada em</th>
 			<th style="">inicio / Fim</th>
 			<th style="">ações</th>
@@ -16,15 +17,31 @@
 	} else {
 	foreach ($this->enquetes as $key => $enquete) { ?>
 		<tr style="<?php if($key%2 == 0) echo 'background-color: #dbe4f3;' ?>">
-			<td><?= ++$key ?></td>
+			<td><b><?= ++$key ?></b></td>
 			<td><?= $enquete->titulo ?></td>
-			<td><?= dateFormated($enquete->criado_em, 'd/m/Y H:i') ?></td>
-			<td><?= dateFormated($enquete->data_inicio, 'd/m/Y').' / '.dateFormated($enquete->data_fim, 'd/m/Y') ?></td>
 			<td>
-                <a href="<?= url('/enquete/'.$enquete->id.'/editar') ?>" class="btn btn-info">
-                    editar
-                </a>
-                 excluir
+				<? 
+                if($enquete->data_inicio > date('Y-m-d')){ ?>
+                    <strong class="aguardando">Aguardando abertura</strong>
+                <? 
+                }elseif ($enquete->data_fim > date('Y-m-d')){
+                ?>
+                    <strong class="aberta">Aberta</strong>
+                <? }else { ?>
+                    <strong class="encerrada" >Encerrada</strong>
+                <? } ?>
+			</td>
+			<td><?= dateFormated($enquete->criado_em, 'd/m/Y H:i') ?></td>
+			<td><?= dateFormated($enquete->data_inicio, 'd/m/Y').' a '.dateFormated($enquete->data_fim, 'd/m/Y') ?></td>
+			<td style="text-align:center;">
+				<? if($enquete->data_fim > date('Y-m-d')){?>
+                <a  href="<?= url('/enquete/'.$enquete->id.'/editar') ?>" class="btn" style="margin-right:10px;">
+                    Editar
+				</a>
+				<?}?>
+                <button class="btn btn-danger" onclick="deleteEnquete(<?= $enquete->id ?>)">
+					Excluir
+				</button>
             </td>
 			<!-- <td>
 					<a href="#" class="but-war"><i class="fa fa-exchange" aria-hidden="true"></i>
@@ -35,3 +52,14 @@
 	<?php } }?>
 	</tbody>
 </table>
+
+<script>
+	function deleteEnquete(id){
+		let conf = confirm("Deseja realemente excluir a enquete?");
+
+		if(!conf) return false;
+
+		window.location = "<?= url('/') ?>enquete/"+id+"/excluir";
+		// alert('aaaa');
+	}
+</script>

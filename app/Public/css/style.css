@@ -698,3 +698,27 @@ input[id*="modal_"]:checked + div.modal .modal-content {
 .encerrada {
     color: #d81111;
 }
+
+.btn {
+    font-size: 14px;
+    border-radius: 4px;
+    color: #fff;
+    opacity: .8;
+    cursor: pointer;
+    background: #004db9;
+    border-bottom: 1px solid #042555;
+    border-right: 1px solid #042555;
+    transition: 1s;
+    padding: 5px;
+    margin: 3px;
+    text-decoration: none;
+}
+
+.btn-danger {
+  background-color: red;
+  background: red;
+  border-bottom: 1px solid #a80505;
+  border-right: 1px solid #a80505;
+  color: white;
+  border-color: red;
+}

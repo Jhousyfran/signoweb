@@ -148,14 +148,17 @@ class EnqueteController extends MasterController
 
     public function delete()
     {
+        $enquete = new Enquete();
         $id = $this->request->id ? $this->request->id : false ;
 
         if($id){
             $enquete = $enquete->find($id);
             if(!$enquete->id) return $this->response->redirect(url('/'))->send();
-            $respostas = Enquete::respostas($enquete->id);
         }
 
+        $this->enquete->delete($id);
+
+        return $this->response->redirect(url('/enquetes/editar'))->send();
         
     }
 

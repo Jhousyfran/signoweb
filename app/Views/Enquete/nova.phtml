@@ -30,7 +30,7 @@
             <br>
         </div> -->
         <div v-for="(resposta, index) in respostas" :key="index" style="width:100%;float:left;">
-            <input :id="'resposta'+index"  style="margin-bottom:5px;" type="text" v-model="resposta.value" class="form-contact-input" name="resposta[]" placeholder="Resposta" required style="width:100%;float:left;" v-on:change="validarRespostas()" <? if(($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d')))){ echo 'disabled'; } ?> />
+            <input :id="'resposta'+index"  style="margin-bottom:5px;" type="text" v-model="resposta.value" class="form-contact-input" name="resposta[]" :placeholder="'Resposta '+(index+1)" maxlength="320" required style="width:100%;float:left;" v-on:change="validarRespostas()" <? if(($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d')))){ echo 'disabled'; } ?> />
              <? if(!($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d')))){ ?> 
             <div style="width:100%;text-align:left;">
                 <small v-on:click="rmResposta(index)" v-if="index >= 3" class="c-p" style="margin-bottom:20px;font-size:15px;color:red;">eliminar resposta</small>
