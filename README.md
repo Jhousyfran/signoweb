@@ -27,10 +27,5 @@ docker-compose up -d
 docker-compose run web composer install
 ```
 
-5\. Faça o build do JS do front\-end da aplicacao
 
-```
-docker-compose run node npm run prod
-```
-
-6\. Agora você pode acessar aplicação em [localhost:8000 ou clique aqui!](http://localhost:8000)
+5\. Agora você pode acessar aplicação em [localhost:8000 ou clique aqui!](http://localhost:8000)
