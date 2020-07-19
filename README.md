@@ -6,37 +6,37 @@ Este é um projeto em PHP puro usando Orientação a Objetos e usando o padrão 
 
 ##### A estrura do projeto:
 
-app   \- \-\|
+\|\- app   \-    \|
 
-            \|\- Controllers // controllers da Aplicação
+\|                \|\- Controllers // controllers da Aplicação
 
-            \|\- Model        // models da Aplicação
+\|                \|\- Model        // models da Aplicação
 
-            \|\- Views        // View da Aplicação
+\|                \|\- Views        // View da Aplicação
 
-            Rotas.php    // Url amigaveis
+\|               Rotas\.php    // Url amigaveis
 
-config \- \-\|
+\|\- config  \- \|
 
-            autoload.php
+\|                autoload\.php
 
-            configuracoes.php
+\|                configuracoes\.php
 
-            helpers.php
+\|                helpers\.php
 
-documentacao \- \-\|
+\|\- documentacao
 
-initdb \- \-\|
+\|\- initdb
 
-src  \- \-\|
+\|\- src
 
-composer.json
+\|\- composer\.json
 
-docker-compse.yml
+\|\- docker\-compse\.yml
 
-.env.ini
+\|\- \.env\.ini
 
-index.php
+\|index\.php
 
 README.md
 
