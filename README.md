@@ -42,9 +42,10 @@ Este é um projeto em PHP puro usando Orientação a Objetos e usando o padrão 
 
 <br>
 **OBS: Se apagarmos os arquivos da pasta app/Controllers, app/Model/, e app//Views/ e limparmos o arquivo app/Rotas.php, teremos uma estrutura pronta para ser usada como um micro-framework capaz de atender as necessidades básicas de uma aplicação, como esta.**
-<br>
+
+
 #### A estrura do banco de dados:
-<br>
+
 ![image](https://raw.githubusercontent.com/Jhousyfran/signoweb/master/Documentacao/db_modelagem.png)
 
 **OBS: A estrutura poderia ser mais simples, poderiamos ter apenas uma coluna na tabela "enquete\_respostas" para contabilizar os votos de cada resposta, sempre que alguém votasse poderiamos incrementar o valor, mas esta estrutura foi feita da forma mostrada a cima pois assim, podemos guardar o momento exatato em que cada voto acontece, isso seria util no futuro para uma possível auditoria, talvez ficaria melhor ainda se criássemos mais uma coluna na tabela "enquete\_votos" para guardar o ip de quem vota, e poderiamos guardar outras informações (navegador, etc) mais que seriam utéis...**
