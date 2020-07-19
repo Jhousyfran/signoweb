@@ -43,20 +43,20 @@ README.md
 Criar um back (crud completo de criação/edição/exclusão) com gerenciamento de enquete e
 opções.
 \- A enquete deve ter um título e uma data programada para início e para término\.
-\- O cadastro de opções de respostas da enquete devem ser dinâmicas\, é obrigatório
-mínimo 3 opções.
-Visualização da enquete
-\- Listar todas as enquetes cadastradas no banco com o título e data de início e
-término, apresentar todas as enquetes, não iniciadas/em andamento/finalizadas.
-\- Criar tela de apresentar a enquete com opções de resposta\, com a data de início e
-término. Essa tela deve obedecer:
-\- Ao lado de cada opção\, apresentar os números de votação total do lado de cada
-opção.
-\- Se a enquete não estiver ativa entre data/hora início e data/hora fim\, as opções e o
-botão de votar deve estar desabilitado.
-\- \* Os números de resultados devem ser apresentados sempre que houver novo voto
-(realtime)
 
+\- O cadastro de opções de respostas da enquete devem ser dinâmicas\, é obrigatório mínimo 3 opções\.
+
+Visualização da enquete
+
+\- Listar todas as enquetes cadastradas no banco com o título e data de início e término\, apresentar todas as enquetes\, não iniciadas/em andamento/finalizadas\.
+
+\- Criar tela de apresentar a enquete com opções de resposta\, com a data de início e término\. Essa tela deve obedecer:
+
+\- Ao lado de cada opção\, apresentar os números de votação total do lado de cada opção\.
+
+\- Se a enquete não estiver ativa entre data/hora início e data/hora fim\, as opções e o botão de votar deve estar desabilitado\.
+
+\- \* Os números de resultados devem ser apresentados sempre que houver novo voto \(realtime\)
 <br>
 ## A solução
 
@@ -97,7 +97,7 @@ git clone [https://github.com/Jhousyfran/signoweb.git](https://github.com/Jhousy
 cd signoweb
 ```
 <br>
-2\. O arquivo de configurações é o \.env\.ini \(ele já esta configurado\)\, mas você pode dá uma olhada e conferir :\) \. Se não estiver usando docker então modifique as variaveis para apontar para seu banco de dados\.
+2\. O arquivo de configurações é o \.env\.ini \(ele já esta configurado\)\, mas você pode dá uma olhada e conferir  Se não estiver usando docker então modifique as variaveis para apontar para seu banco de dados\.
 
 3\. É necessário ter o composer na sua máquina\.
 <br>
