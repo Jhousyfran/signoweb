@@ -25,10 +25,7 @@
             <? } ?>
         </label>
         <hr>
-        <!-- <div style="width:100%;text-align:left;padding:20px 0px;">
-            <button v-on:click="addResposta()" type="button" style="float:left;text-align:left;">nova resposta</button>
-            <br>
-        </div> -->
+
         <div v-for="(resposta, index) in respostas" :key="index" style="width:100%;float:left;">
             <input :id="'resposta'+index"  style="margin-bottom:5px;" type="text" v-model="resposta.value" class="form-contact-input" name="resposta[]" :placeholder="'Resposta '+(index+1)" maxlength="320" required style="width:100%;float:left;" v-on:change="validarRespostas()" <? if(($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d')))){ echo 'disabled'; } ?> />
              <? if(!($this->enquete->id && ($this->enquete->data_inicio <= date('Y-m-d')))){ ?> 
@@ -36,9 +33,6 @@
                 <small v-on:click="rmResposta(index)" v-if="index >= 3" class="c-p" style="margin-bottom:20px;font-size:15px;color:red;">eliminar resposta</small>
             </div>
              <? } ?>
-            <!-- <div v-if="index >= 3" style="float:right;width:15%;padding:10px;color:red;">
-                <span v-on:click="rmResposta(index)" class="c-p" > excluir</span>
-            </div> -->
         </div>
         <div style="width:100%;margin-top:10px;float:left;">
             <p v-if="!respostas_validas" style="color:rede;text-align:center;">Não é aceitavel respostas repetidas, corrija para continuar.</p>
@@ -64,10 +58,6 @@
         
         return ano + '-' + ("0" + mes).slice(-2) + '-' + ("0" + dia).slice(-2);
     }
-    
-    // function validaForm(){
-
-    // }
 
     function valorDataFim(){
         let data_inicio = $('#data_inicio').val();
